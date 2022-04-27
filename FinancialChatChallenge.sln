@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{79E92E99-C521-4C9C-B7B0-D5C3AA9FF6BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{610BBAE8-815D-4213-B098-59311A087D87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialChat.Core", "src\FinancialChat.Core\FinancialChat.Core.csproj", "{CB427A18-E45D-4F45-BFF9-E10C477C3434}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialChat.Infrastructure", "src\FinancialChat.Infrastructure\FinancialChat.Infrastructure.csproj", "{7875C16B-A02B-4FA4-B9FA-6FA20E281324}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialChat.Web", "src\FinancialChat.Web\FinancialChat.Web.csproj", "{DAB7FFE1-A6E6-4627-9C11-AAFE8F7866A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialChat.Bot", "src\FinancialChat.Bot\FinancialChat.Bot.csproj", "{5968BA49-2B27-434A-BAB5-AAF77EC81CF7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CB427A18-E45D-4F45-BFF9-E10C477C3434} = {79E92E99-C521-4C9C-B7B0-D5C3AA9FF6BD}
+		{7875C16B-A02B-4FA4-B9FA-6FA20E281324} = {79E92E99-C521-4C9C-B7B0-D5C3AA9FF6BD}
+		{DAB7FFE1-A6E6-4627-9C11-AAFE8F7866A4} = {79E92E99-C521-4C9C-B7B0-D5C3AA9FF6BD}
+		{5968BA49-2B27-434A-BAB5-AAF77EC81CF7} = {79E92E99-C521-4C9C-B7B0-D5C3AA9FF6BD}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CB427A18-E45D-4F45-BFF9-E10C477C3434}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB427A18-E45D-4F45-BFF9-E10C477C3434}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB427A18-E45D-4F45-BFF9-E10C477C3434}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB427A18-E45D-4F45-BFF9-E10C477C3434}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7875C16B-A02B-4FA4-B9FA-6FA20E281324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7875C16B-A02B-4FA4-B9FA-6FA20E281324}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7875C16B-A02B-4FA4-B9FA-6FA20E281324}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7875C16B-A02B-4FA4-B9FA-6FA20E281324}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAB7FFE1-A6E6-4627-9C11-AAFE8F7866A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAB7FFE1-A6E6-4627-9C11-AAFE8F7866A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAB7FFE1-A6E6-4627-9C11-AAFE8F7866A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAB7FFE1-A6E6-4627-9C11-AAFE8F7866A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5968BA49-2B27-434A-BAB5-AAF77EC81CF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5968BA49-2B27-434A-BAB5-AAF77EC81CF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5968BA49-2B27-434A-BAB5-AAF77EC81CF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5968BA49-2B27-434A-BAB5-AAF77EC81CF7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
