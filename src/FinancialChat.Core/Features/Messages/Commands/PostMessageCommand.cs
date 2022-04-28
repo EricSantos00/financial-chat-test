@@ -28,7 +28,8 @@ public class PostMessageCommandHandler : IRequestHandler<PostMessageCommand>
         }
         else
         {
-            await _chatMessageRepository.AddAsync(new ChatMessage(message, userId, groupId, DateTime.Now), cancellationToken);
+            await _chatMessageRepository.AddAsync(
+                new ChatMessage(Guid.NewGuid(), message, userId, groupId, DateTime.Now), cancellationToken);
             await _mediator.Publish(new MessagePostedNotification(message, userId, groupId), cancellationToken);
         }
 

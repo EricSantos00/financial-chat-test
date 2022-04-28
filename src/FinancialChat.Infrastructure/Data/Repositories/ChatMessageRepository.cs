@@ -24,7 +24,7 @@ public class ChatMessageRepository : IChatMessageRepository
     {
         return _applicationDbContext.ChatMessages
             .Where(x => x.GroupId == group)
-            .OrderByDescending(x => x.CreatedAt)
+            .OrderBy(x => x.CreatedAt)
             .Take(count)
             .ToListAsync(cancellationToken);
     }

@@ -1,3 +1,3 @@
 ﻿namespace FinancialChat.Core.Entities;
 
-public record ChatMessage(string Message, string UserId, string GroupId, DateTime CreatedAt);
+public record ChatMessage(Guid Id, string Message, string UserId, string GroupId, DateTime CreatedAt);
