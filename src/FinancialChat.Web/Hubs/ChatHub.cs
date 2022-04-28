@@ -8,7 +8,7 @@ namespace FinancialChat.Web.Hubs;
 public class ChatHub : Hub<IChatClient>
 {
     private readonly IMediator _mediator;
-    private static readonly IDictionary<string, string> _userCurrentRoom = new Dictionary<string, string>();
+    private static readonly IDictionary<string, string> UserCurrentRoom = new Dictionary<string, string>();
 
     private string Username => Context.User?.Identity?.Name ?? "Unknown";
 
@@ -19,21 +19,24 @@ public class ChatHub : Hub<IChatClient>
 
     public async Task SendMessage(string message)
     {
-        if (!_userCurrentRoom.ContainsKey(Context.ConnectionId))
+        if (!UserCurrentRoom.ContainsKey(Context.ConnectionId))
             throw new HubException("You are not in a room");
 
-        await _mediator.Send(new PostMessageCommand(message, Username, _userCurrentRoom[Context.ConnectionId]));
+        await _mediator.Send(new PostMessageCommand(message, Username, UserCurrentRoom[Context.ConnectionId]));
     }
 
     public async Task JoinRoom(string room)
     {
-        if (_userCurrentRoom.TryGetValue(Context.ConnectionId, out var oldRoom))
+        if (UserCurrentRoom.TryGetValue(Context.ConnectionId, out var oldRoom))
         {
+            if(oldRoom == room)
+                throw new HubException("You are already in this room");
+            
             await LeaveRoom(oldRoom);
         }
 
         await Groups.AddToGroupAsync(Context.ConnectionId, room);
-        _userCurrentRoom[Context.ConnectionId] = room;
+        UserCurrentRoom[Context.ConnectionId] = room;
 
         var messages = await _mediator.Send(new GetLatestRoomMessagesQuery(room));
 
@@ -47,7 +50,7 @@ public class ChatHub : Hub<IChatClient>
 
     public override async Task OnDisconnectedAsync(Exception? exception)
     {
-        if (_userCurrentRoom.TryGetValue(Context.ConnectionId, out var oldRoom))
+        if (UserCurrentRoom.TryGetValue(Context.ConnectionId, out var oldRoom))
         {
             await LeaveRoom(oldRoom);
         }
@@ -55,7 +58,7 @@ public class ChatHub : Hub<IChatClient>
 
     private async Task LeaveRoom(string room)
     {
-        _userCurrentRoom.Remove(Context.ConnectionId);
+        UserCurrentRoom.Remove(Context.ConnectionId);
 
         await Groups.RemoveFromGroupAsync(Context.ConnectionId, room);
 
