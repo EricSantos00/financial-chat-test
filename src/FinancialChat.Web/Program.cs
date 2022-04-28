@@ -1,7 +1,9 @@
 using System.Reflection;
+using FinancialChat.Core;
 using FinancialChat.Core.Interfaces;
 using FinancialChat.Infrastructure.Data;
 using FinancialChat.Infrastructure.Data.Repositories;
+using FinancialChat.Infrastructure.Identity;
 using FinancialChat.Web.Hubs;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -11,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<AppIdentityDbContext>();
 
 builder.Services.AddSignalR();
 
@@ -21,10 +23,13 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddCore();
+
+builder.Services.AddDbContext<AppIdentityDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(connectionString));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddTransient<IChatMessageRepository, ChatMessageRepository>();
 

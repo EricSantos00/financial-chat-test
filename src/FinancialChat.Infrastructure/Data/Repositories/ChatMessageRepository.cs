@@ -1,17 +1,31 @@
 ﻿using FinancialChat.Core.Entities;
 using FinancialChat.Core.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinancialChat.Infrastructure.Data.Repositories;
 
 public class ChatMessageRepository : IChatMessageRepository
 {
-    public Task AddAsync(ChatMessage message)
+    private readonly ApplicationDbContext _applicationDbContext;
+
+    public ChatMessageRepository(ApplicationDbContext applicationDbContext)
     {
-        return Task.CompletedTask;
+        _applicationDbContext = applicationDbContext;
     }
 
-    public Task<IEnumerable<ChatMessage>> GetLatestMessagesAsync(string group, int count)
+    public async Task AddAsync(ChatMessage message, CancellationToken cancellationToken)
     {
-        return null;
+        await _applicationDbContext.AddAsync(message, cancellationToken);
+        await _applicationDbContext.SaveChangesAsync(cancellationToken);
+    }
+
+    public Task<List<ChatMessage>> GetLatestMessagesAsync(string @group, int count,
+        CancellationToken cancellationToken)
+    {
+        return _applicationDbContext.ChatMessages
+            .Where(x => x.GroupId == group)
+            .OrderByDescending(x => x.CreatedAt)
+            .Take(count)
+            .ToListAsync(cancellationToken);
     }
 }

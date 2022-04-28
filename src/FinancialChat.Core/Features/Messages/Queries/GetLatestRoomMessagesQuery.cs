@@ -4,9 +4,9 @@ using MediatR;
 
 namespace FinancialChat.Core.Features.Messages.Queries;
 
-public record GetLatestRoomMessagesQuery(string Room) : IRequest<IEnumerable<ChatMessage>>;
+public record GetLatestRoomMessagesQuery(string Room) : IRequest<List<ChatMessage>>;
 
-public class GetLatestRoomMessagesQueryHandler : IRequestHandler<GetLatestRoomMessagesQuery, IEnumerable<ChatMessage>>
+public class GetLatestRoomMessagesQueryHandler : IRequestHandler<GetLatestRoomMessagesQuery, List<ChatMessage>>
 {
     private readonly IChatMessageRepository _chatMessageRepository;
 
@@ -17,6 +17,7 @@ public class GetLatestRoomMessagesQueryHandler : IRequestHandler<GetLatestRoomMe
         _chatMessageRepository = chatMessageRepository;
     }
 
-    public Task<IEnumerable<ChatMessage>> Handle(GetLatestRoomMessagesQuery request, CancellationToken cancellationToken) =>
-        _chatMessageRepository.GetLatestMessagesAsync(request.Room, MaxLatestMessages);
+    public Task<List<ChatMessage>> Handle(GetLatestRoomMessagesQuery request,
+        CancellationToken cancellationToken) =>
+        _chatMessageRepository.GetLatestMessagesAsync(request.Room, MaxLatestMessages, cancellationToken);
 }

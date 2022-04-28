@@ -4,6 +4,6 @@ namespace FinancialChat.Core.Interfaces;
 
 public interface IChatMessageRepository
 {
-    Task AddAsync(ChatMessage message);
-    Task<IEnumerable<ChatMessage>> GetLatestMessagesAsync(string group, int count);
+    Task AddAsync(ChatMessage message, CancellationToken cancellationToken);
+    Task<List<ChatMessage>> GetLatestMessagesAsync(string @group, int count, CancellationToken cancellationToken);
 }
