@@ -2,15 +2,15 @@
 
 using System;
 using FinancialChat.Infrastructure.Data;
-using FinancialChat.Web.Data;
+using FinancialChat.Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace FinancialChat.Web.Data.Migrations
+namespace FinancialChat.Infrastructure.Identity.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(AppIdentityDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace FinancialChat.Web.Data.Migrations
+namespace FinancialChat.Infrastructure.Identity.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

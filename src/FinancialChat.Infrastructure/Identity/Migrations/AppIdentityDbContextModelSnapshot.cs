@@ -2,15 +2,15 @@
 
 using System;
 using FinancialChat.Infrastructure.Data;
-using FinancialChat.Web.Data;
+using FinancialChat.Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace FinancialChat.Web.Data.Migrations
+namespace FinancialChat.Infrastructure.Identity.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(AppIdentityDbContext))]
+    partial class AppDbIdentityContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
