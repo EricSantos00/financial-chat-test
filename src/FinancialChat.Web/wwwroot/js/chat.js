@@ -26,7 +26,7 @@ connection.start().then(function () {
 document.getElementById("sendButton").addEventListener("click", function (event) {
     const user = document.getElementById("userInput").value;
     const message = document.getElementById("messageInput").value;
-    connection.invoke("SendMessage", user, message)
+    connection.invoke("SendMessage", message)
         .catch(function (err) {
             return console.error(err.toString());
         });

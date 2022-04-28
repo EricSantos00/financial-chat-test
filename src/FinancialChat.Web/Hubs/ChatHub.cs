@@ -8,7 +8,7 @@ namespace FinancialChat.Web.Hubs;
 public class ChatHub : Hub<IChatClient>
 {
     private readonly IMediator _mediator;
-    private readonly IDictionary<string, string> _userCurrentRoom = new Dictionary<string, string>();
+    private static readonly IDictionary<string, string> _userCurrentRoom = new Dictionary<string, string>();
 
     private string Username => Context.User?.Identity?.Name ?? "Unknown";
 
@@ -19,7 +19,7 @@ public class ChatHub : Hub<IChatClient>
 
     public async Task SendMessage(string message)
     {
-        if (!_userCurrentRoom.ContainsKey(Username))
+        if (!_userCurrentRoom.ContainsKey(Context.ConnectionId))
             throw new HubException("You are not in a room");
 
         await _mediator.Send(new PostMessageCommand(message, Username, _userCurrentRoom[Context.ConnectionId]));
