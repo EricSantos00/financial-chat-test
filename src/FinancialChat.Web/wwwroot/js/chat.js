@@ -39,7 +39,7 @@ document.getElementById("joinRoomButton").addEventListener("click", function (ev
     
     const room = document.getElementById("roomNameInput").value;
     
-    connection.invoke("JoinGroup", room)
+    connection.invoke("JoinRoom", room)
         .then(function () {
             document.getElementById("sendButton").disabled = false;
         })
