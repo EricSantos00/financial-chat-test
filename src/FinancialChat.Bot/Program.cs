@@ -1,5 +1,5 @@
 ﻿using FinancialChat.Bot;
-using FinancialChat.Bot.BotMessageHandler;
+using FinancialChat.Bot.BotCommandHandler;
 using FinancialChat.Bot.MessageBroker;
 using FinancialChat.Bot.Messages;
 using FinancialChat.Bot.Services;
@@ -37,7 +37,7 @@ var host = Host
 
         services.AddSingleton(services =>
         {
-            var manager = new BotMessageHandlerManager(services);
+            var manager = new BotCommandHandlerManager(services);
 
             manager.Register<StockCommandHandler>("/stock");
 

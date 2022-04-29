@@ -1,4 +1,4 @@
-﻿using FinancialChat.Bot.BotMessageHandler;
+﻿using FinancialChat.Bot.BotCommandHandler;
 using FinancialChat.Bot.MessageBroker;
 using FinancialChat.Bot.Messages;
 
@@ -6,12 +6,12 @@ namespace FinancialChat.Bot.Services;
 
 public class BotService
 {
-    private readonly BotMessageHandlerManager _botMessageHandlerManager;
+    private readonly BotCommandHandlerManager _botCommandHandlerManager;
     private readonly IMessageSender _messageSender;
 
-    public BotService(BotMessageHandlerManager botMessageHandlerManager, IMessageSender messageSender)
+    public BotService(BotCommandHandlerManager botCommandHandlerManager, IMessageSender messageSender)
     {
-        _botMessageHandlerManager = botMessageHandlerManager;
+        _botCommandHandlerManager = botCommandHandlerManager;
         _messageSender = messageSender;
     }
 
@@ -35,13 +35,13 @@ public class BotService
         var command = commandSplit[0];
         var value = commandSplit[1];
 
-        var handler = _botMessageHandlerManager.GetHandler(command);
+        var handler = _botCommandHandlerManager.GetHandler(command);
 
         if (handler is null)
         {
             return "Command not found";
         }
 
-        return await handler.HandleMessage(value);
+        return await handler.HandleCommand(value);
     }
 }

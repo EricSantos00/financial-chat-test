@@ -1,19 +1,19 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace FinancialChat.Bot.BotMessageHandler;
+namespace FinancialChat.Bot.BotCommandHandler;
 
-public class BotMessageHandlerManager
+public class BotCommandHandlerManager
 {
-    private readonly Dictionary<string, IBotMessageHandler?> _botMessageHandlers = new();
+    private readonly Dictionary<string, IBotCommandHandler?> _botMessageHandlers = new();
     private readonly IServiceProvider _serviceProvider;
 
-    public BotMessageHandlerManager(IServiceProvider serviceProvider)
+    public BotCommandHandlerManager(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
     }
 
     public void Register<T>(string command)
-        where T : IBotMessageHandler
+        where T : IBotCommandHandler
     {
         if (_botMessageHandlers.ContainsKey(command))
         {
@@ -23,7 +23,7 @@ public class BotMessageHandlerManager
         _botMessageHandlers.Add(command, ActivatorUtilities.CreateInstance<T>(_serviceProvider));
     }
 
-    public IBotMessageHandler? GetHandler(string command)
+    public IBotCommandHandler? GetHandler(string command)
     {
         return !_botMessageHandlers.ContainsKey(command) ? null : _botMessageHandlers[command];
     }
