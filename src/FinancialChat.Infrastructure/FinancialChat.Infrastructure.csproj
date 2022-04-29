@@ -9,6 +9,7 @@
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="6.0.2" />
+      <PackageReference Include="RabbitMQ.Client" Version="6.2.4" />
     </ItemGroup>
 
     <ItemGroup>
