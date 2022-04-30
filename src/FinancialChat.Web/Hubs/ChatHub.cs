@@ -1,10 +1,12 @@
 ﻿using FinancialChat.Core.Features.Messages.Commands;
 using FinancialChat.Core.Features.Messages.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace FinancialChat.Web.Hubs;
 
+[Authorize]
 public class ChatHub : Hub<IChatClient>
 {
     private readonly IMediator _mediator;
@@ -29,9 +31,9 @@ public class ChatHub : Hub<IChatClient>
     {
         if (UserCurrentRoom.TryGetValue(Context.ConnectionId, out var oldRoom))
         {
-            if(oldRoom == room)
+            if (oldRoom == room)
                 throw new HubException("You are already in this room");
-            
+
             await LeaveRoom(oldRoom);
         }
 
@@ -42,10 +44,10 @@ public class ChatHub : Hub<IChatClient>
 
         foreach (var message in messages)
         {
-            await Clients.Caller.ReceiveMessage(message.UserId, message.Message);
+            await Clients.Caller.ReceiveMessage(message.CreatedAt, message.UserName, message.Message);
         }
-        
-        await Clients.Group(room).ReceiveMessage(Username, $"{Username} joined the room");
+
+        await Clients.Group(room).ReceiveMessage(DateTime.Now, "[System]", $"{Username} joined the room");
     }
 
     public override async Task OnDisconnectedAsync(Exception? exception)
@@ -62,6 +64,6 @@ public class ChatHub : Hub<IChatClient>
 
         await Groups.RemoveFromGroupAsync(Context.ConnectionId, room);
 
-        await Clients.Group(room).ReceiveMessage("System", $"{Username} left the room");
+        await Clients.Group(room).ReceiveMessage(DateTime.Now, "[System]", $"{Username} left the room");
     }
 }

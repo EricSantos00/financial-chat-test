@@ -5,7 +5,7 @@ using MediatR;
 
 namespace FinancialChat.Core.Features.Messages.Commands;
 
-public record PostMessageCommand(string Message, string UserId, string GroupId) : IRequest;
+public record PostMessageCommand(string Message, string UserName, string GroupId) : IRequest;
 
 public class PostMessageCommandHandler : IRequestHandler<PostMessageCommand>
 {
@@ -20,17 +20,21 @@ public class PostMessageCommandHandler : IRequestHandler<PostMessageCommand>
 
     public async Task<Unit> Handle(PostMessageCommand request, CancellationToken cancellationToken)
     {
-        var (message, userId, groupId) = request;
+        var (message, userName, groupId) = request;
 
         if (message.StartsWith("/"))
         {
-            await _mediator.Publish(new BotCommandReceivedNotification(message, userId, groupId), cancellationToken);
+            await _mediator.Publish(new BotCommandReceivedNotification(message, userName, groupId), cancellationToken);
         }
         else
         {
+            var createdAt = DateTime.Now;
+
             await _chatMessageRepository.AddAsync(
-                new ChatMessage(Guid.NewGuid(), message, userId, groupId, DateTime.Now), cancellationToken);
-            await _mediator.Publish(new MessagePostedNotification(message, userId, groupId), cancellationToken);
+                new ChatMessage(Guid.NewGuid(), message, userName, groupId, createdAt), cancellationToken);
+
+            await _mediator.Publish(new MessagePostedNotification(message, userName, groupId, createdAt),
+                cancellationToken);
         }
 
         return Unit.Value;

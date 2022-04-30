@@ -2,5 +2,5 @@
 
 public interface IChatClient
 {
-    Task ReceiveMessage(string user, string message);
+    Task ReceiveMessage(DateTime date, string user, string message);
 }

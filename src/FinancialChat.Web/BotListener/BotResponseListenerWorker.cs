@@ -26,8 +26,8 @@ public class BotResponseListenerWorker : BackgroundService
             var (message, groupId) = response;
 
             _logger.LogInformation("Received message: {Message}", message);
-            
-            await _hubContext.Clients.Group(groupId).ReceiveMessage("[Bot]", message);
+
+            await _hubContext.Clients.Group(groupId).ReceiveMessage(DateTime.Now, "[Bot]", message);
         });
 
         return Task.CompletedTask;

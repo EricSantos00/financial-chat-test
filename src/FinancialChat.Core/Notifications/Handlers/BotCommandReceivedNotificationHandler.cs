@@ -17,12 +17,12 @@ public class BotCommandReceivedNotificationHandler : INotificationHandler<BotCom
 
     public Task Handle(BotCommandReceivedNotification notification, CancellationToken cancellationToken)
     {
-        var (command, userId, groupId) = notification;
+        var (command, userName, groupId) = notification;
 
         _logger.LogInformation("Publishing command {Command} to message broker", command);
 
         _messageSender.Publish(
-            new BotCommandReceivedNotification(command, userId, groupId));
+            new BotCommandReceivedNotification(command, userName, groupId));
 
         return Task.CompletedTask;
     }

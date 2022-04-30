@@ -16,8 +16,8 @@ public class MessagePostedNotificationHandler : INotificationHandler<MessagePost
 
     public async Task Handle(MessagePostedNotification notification, CancellationToken cancellationToken)
     {
-        var (message, userId, groupId) = notification;
+        var (message, userName, groupId, createdAt) = notification;
 
-        await _hubContext.Clients.Group(groupId).ReceiveMessage(userId, message);
+        await _hubContext.Clients.Group(groupId).ReceiveMessage(createdAt, userName, message);
     }
 }
