@@ -62,6 +62,10 @@ builder.Services.AddHostedService<BotResponseListenerWorker>();
 
 var app = builder.Build();
 
+// Seed the identity database
+var identitySeeder = new IdentityDataSeeder(app.Services);
+identitySeeder.SeedTestUsers();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
