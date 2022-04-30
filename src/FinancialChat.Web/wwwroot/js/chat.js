@@ -8,13 +8,23 @@ document.getElementById("joinRoomButton").disabled = true;
 //Disable the send button until user joins a room.
 document.getElementById("sendButton").disabled = true;
 
-connection.on("ReceiveMessage", function (user, message) {
+connection.on("ReceiveMessage", function (date, user, message) {
     const li = document.createElement("li");
     document.getElementById("messagesList").appendChild(li);
-    // We can assign user-supplied strings to an element's textContent because it
-    // is not interpreted as markup. If you're assigning in any other way, you 
-    // should be aware of possible script injection concerns.
-    li.textContent = `${user} says ${message}`;
+
+    const listCount = document.getElementById("messagesList").childElementCount;
+    
+    if (listCount > 50) {
+        document.getElementById("messagesList").removeChild(document.getElementById("messagesList").firstChild);
+    }
+    
+    const formattedDate = new Date(date).toLocaleString();
+    
+    if(user === "[System]"){
+        li.innerHTML = `<b>[${formattedDate}] ${user}: ${message}</b>`;
+    } else {
+        li.innerHTML = `<b>[${formattedDate}] ${user}:</b> ${message}`;
+    }
 });
 
 connection.start().then(function () {
@@ -24,7 +34,6 @@ connection.start().then(function () {
 });
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
-    const user = document.getElementById("userInput").value;
     const message = document.getElementById("messageInput").value;
     connection.invoke("SendMessage", message)
         .catch(function (err) {
@@ -36,16 +45,16 @@ document.getElementById("sendButton").addEventListener("click", function (event)
 document.getElementById("joinRoomButton").addEventListener("click", function (event) {
     // Disable the sendButton to prevent the user to send message if the join fails.
     document.getElementById("sendButton").disabled = true;
-    
+
     const room = document.getElementById("roomNameInput").value;
-    
+
     connection.invoke("JoinRoom", room)
         .then(function () {
             document.getElementById("sendButton").disabled = false;
         })
         .catch(function (err) {
-        return console.error(err.toString());
-    });
+            return console.error(err.toString());
+        });
 
     event.preventDefault();
 });
