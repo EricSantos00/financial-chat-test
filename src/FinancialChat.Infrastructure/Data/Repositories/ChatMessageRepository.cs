@@ -23,6 +23,7 @@ public class ChatMessageRepository : IChatMessageRepository
         CancellationToken cancellationToken)
     {
         return _applicationDbContext.ChatMessages
+            .AsNoTracking()
             .Where(x => x.GroupId == group)
             .OrderBy(x => x.CreatedAt)
             .Take(count)
