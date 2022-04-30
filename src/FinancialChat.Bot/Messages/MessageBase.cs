@@ -1,3 +1,3 @@
 ﻿namespace FinancialChat.Bot.Messages;
 
-public record MessageBase();
+public record MessageBase;
