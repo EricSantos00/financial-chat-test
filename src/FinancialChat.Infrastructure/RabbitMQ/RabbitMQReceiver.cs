@@ -1,7 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
 using FinancialChat.Core.Interfaces;
-using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -9,9 +8,9 @@ namespace FinancialChat.Infrastructure.RabbitMQ;
 
 public class RabbitMQReceiver<T> : IMessageReceiver<T>, IDisposable
 {
-    private IConnection _connection;
+    private readonly IConnection _connection;
     private IModel _channel;
-    private string _queueName;
+    private readonly string _queueName;
     private readonly RabbitMQReceiverOptions _options;
 
     public RabbitMQReceiver(RabbitMQReceiverOptions options)
@@ -27,12 +26,6 @@ public class RabbitMQReceiver<T> : IMessageReceiver<T>, IDisposable
         }.CreateConnection();
 
         _queueName = _options.QueueName;
-
-        _connection.ConnectionShutdown += Connection_ConnectionShutdown;
-    }
-
-    private static void Connection_ConnectionShutdown(object? sender, ShutdownEventArgs e)
-    {
     }
 
     public void Receive(Func<T, Task> action)
