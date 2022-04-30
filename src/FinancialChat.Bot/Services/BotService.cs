@@ -19,7 +19,7 @@ public class BotService
     {
         var commandResponse = await HandleCommand(botCommandMessage);
 
-        _messageSender.Publish(new BotCommandResponse(commandResponse, botCommandMessage.UserId,
+        _messageSender.Publish(new BotCommandResponse(commandResponse, botCommandMessage.UserName,
             botCommandMessage.GroupId));
     }
 
@@ -34,6 +34,11 @@ public class BotService
 
         var command = commandSplit[0];
         var value = commandSplit[1];
+
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return "You must provide a stock symbol";
+        }
 
         var handler = _botCommandHandlerManager.GetHandler(command);
 
