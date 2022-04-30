@@ -12,7 +12,6 @@ var host = Host
     .CreateDefaultBuilder()
     .ConfigureServices((context, services) =>
     {
-        services.Configure<RabbitMQReceiverOptions>(context.Configuration.GetSection("RabbitMQReceiver"));
         services.Configure<RabbitMQSenderOptions>(context.Configuration.GetSection("RabbitMQSender"));
         services.Configure<StockSettings>(context.Configuration.GetSection("StockSettings"));
 
@@ -35,9 +34,9 @@ var host = Host
                 });
         });
 
-        services.AddSingleton(services =>
+        services.AddSingleton(serviceProvider =>
         {
-            var manager = new BotCommandHandlerManager(services);
+            var manager = new BotCommandHandlerManager(serviceProvider);
 
             manager.Register<StockCommandHandler>("/stock");
 

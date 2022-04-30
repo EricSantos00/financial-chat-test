@@ -2,9 +2,9 @@
 
 public class RabbitMQSenderOptions
 {
-    public string HostName { get; set; }
-    public string UserName { get; set; }
-    public string Password { get; set; }
-    public string ExchangeName { get; set; }
-    public string RoutingKey { get; set; }
+    public string HostName { get; set; } = null!;
+    public string UserName { get; set; } = null!;
+    public string Password { get; set; } = null!;
+    public string ExchangeName { get; set; } = null!;
+    public string RoutingKey { get; set; } = null!;
 }

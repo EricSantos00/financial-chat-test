@@ -18,12 +18,7 @@ public class ChatService : BackgroundService
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _botCommandMessageReceiver.Receive(async (command) =>
-        {
-            Console.WriteLine($"Received command: {command.Command}");
-
-            await _botService.ProcessCommand(command);
-        });
+        _botCommandMessageReceiver.Receive(async (command) => { await _botService.ProcessCommand(command); });
 
         return Task.CompletedTask;
     }

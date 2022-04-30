@@ -36,6 +36,6 @@ public class BotCommandHandlerManagerTests
         var handler = _botCommandHandlerManager.GetHandler("/test");
 
         Assert.NotNull(handler);
-        Assert.Equal(handler.GetType(), typeof(TestCommandHandler));
+        Assert.Equal(typeof(TestCommandHandler), handler!.GetType());
     }
 }

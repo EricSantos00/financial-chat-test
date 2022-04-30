@@ -9,7 +9,7 @@ namespace FinancialChat.Infrastructure.RabbitMQ;
 public class RabbitMQReceiver<T> : IMessageReceiver<T>, IDisposable
 {
     private readonly IConnection _connection;
-    private IModel _channel;
+    private IModel? _channel;
     private readonly string _queueName;
     private readonly RabbitMQReceiverOptions _options;
 
@@ -60,7 +60,7 @@ public class RabbitMQReceiver<T> : IMessageReceiver<T>, IDisposable
 
     public void Dispose()
     {
-        _channel.Dispose();
+        _channel?.Dispose();
         _connection.Dispose();
     }
 }
