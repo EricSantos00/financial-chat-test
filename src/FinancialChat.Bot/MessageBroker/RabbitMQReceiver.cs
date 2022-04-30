@@ -7,9 +7,9 @@ namespace FinancialChat.Bot.MessageBroker;
 
 public class RabbitMQReceiver<T> : IMessageReceiver<T>, IDisposable
 {
-    private IConnection _connection;
+    private readonly IConnection _connection;
     private IModel _channel;
-    private string _queueName;
+    private readonly string _queueName;
     private readonly RabbitMQReceiverOptions _options;
 
     public RabbitMQReceiver(RabbitMQReceiverOptions options)
@@ -25,12 +25,6 @@ public class RabbitMQReceiver<T> : IMessageReceiver<T>, IDisposable
         }.CreateConnection();
 
         _queueName = options.QueueName;
-
-        _connection.ConnectionShutdown += Connection_ConnectionShutdown;
-    }
-
-    private static void Connection_ConnectionShutdown(object? sender, ShutdownEventArgs e)
-    {
     }
 
     public void Receive(Func<T, Task> action)
