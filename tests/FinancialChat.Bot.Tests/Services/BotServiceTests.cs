@@ -34,7 +34,7 @@ public class BotServiceTests
 
         _messageSender.Verify(x => x.Publish(
                 It.Is<BotCommandResponse>(botCommandResponse =>
-                    botCommandResponse.Message == "Invalid command" && botCommandResponse.UserId == "user" &&
+                    botCommandResponse.Message == "Invalid command" && botCommandResponse.UserName == "user" &&
                     botCommandResponse.GroupId == "group")),
             Times.Once);
     }
@@ -46,7 +46,7 @@ public class BotServiceTests
 
         _messageSender.Verify(x => x.Publish(
                 It.Is<BotCommandResponse>(botCommandResponse =>
-                    botCommandResponse.Message == "Command not found" && botCommandResponse.UserId == "user" &&
+                    botCommandResponse.Message == "Command not found" && botCommandResponse.UserName == "user" &&
                     botCommandResponse.GroupId == "group")),
             Times.Once);
     }
@@ -62,7 +62,7 @@ public class BotServiceTests
 
         _messageSender.Verify(x => x.Publish(
                 It.Is<BotCommandResponse>(botCommandResponse =>
-                    botCommandResponse.Message == valueToAssert && botCommandResponse.UserId == "user" &&
+                    botCommandResponse.Message == valueToAssert && botCommandResponse.UserName == "user" &&
                     botCommandResponse.GroupId == "group")),
             Times.Once);
     }
