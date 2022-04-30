@@ -22,7 +22,11 @@ builder.Services.AddSignalR();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizePage("/");
+    options.Conventions.AuthorizePage("/Index");
+});
 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
