@@ -34,11 +34,16 @@ You must install and configure RabbitMQ before proceed. If you want, you can use
 ```
 
 ## Run the project
+* If you are using Visual Studio, you must set the multiple startup as:
+- FinancialChat.Web
+- FinancialChat.Bot
+
+Otherwise, use a command terminal:
 ```sh
 > cd {solution_folder}/src/FinancialChat.Web
 > dotnet run
 
-* Open a new terminal and then run *
+* Open a new terminal and then run
 
 > cd {solution_folder}/src/FinancialChat.Bot
 > dotnet run
