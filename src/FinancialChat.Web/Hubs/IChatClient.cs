@@ -3,4 +3,5 @@
 public interface IChatClient
 {
     Task ReceiveMessage(DateTime date, string user, string message);
+    Task JoinedRoom();
 }

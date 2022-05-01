@@ -42,6 +42,8 @@ public class ChatHub : Hub<IChatClient>
 
         var messages = await _mediator.Send(new GetLatestRoomMessagesQuery(room));
 
+        await Clients.Caller.JoinedRoom();
+
         foreach (var message in messages)
         {
             await Clients.Caller.ReceiveMessage(message.CreatedAt, message.UserName, message.Message);

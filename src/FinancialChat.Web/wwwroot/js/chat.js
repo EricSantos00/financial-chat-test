@@ -13,18 +13,22 @@ connection.on("ReceiveMessage", function (date, user, message) {
     document.getElementById("messagesList").appendChild(li);
 
     const listCount = document.getElementById("messagesList").childElementCount;
-    
+
     if (listCount > 50) {
         document.getElementById("messagesList").removeChild(document.getElementById("messagesList").firstChild);
     }
-    
+
     const formattedDate = new Date(date).toLocaleString();
-    
-    if(user === "[System]"){
+
+    if (user === "[System]") {
         li.innerHTML = `<b>[${formattedDate}] ${user}: ${message}</b>`;
     } else {
         li.innerHTML = `<b>[${formattedDate}] ${user}:</b> ${message}`;
     }
+});
+
+connection.on("JoinedRoom", function () {
+    document.getElementById("messagesList").innerHTML = '';
 });
 
 connection.start().then(function () {
@@ -49,12 +53,11 @@ document.getElementById("joinRoomButton").addEventListener("click", function (ev
     const room = document.getElementById("roomNameInput").value;
 
     connection.invoke("JoinRoom", room)
-        .then(function () {
-            document.getElementById("sendButton").disabled = false;
-        })
         .catch(function (err) {
             return console.error(err.toString());
         });
+
+    document.getElementById("sendButton").disabled = false;
 
     event.preventDefault();
 });
