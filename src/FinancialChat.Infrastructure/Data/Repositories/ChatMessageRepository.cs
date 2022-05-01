@@ -19,12 +19,12 @@ public class ChatMessageRepository : IChatMessageRepository
         await _applicationDbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public Task<List<ChatMessage>> GetLatestMessagesAsync(string @group, int count,
+    public Task<List<ChatMessage>> GetLatestMessagesAsync(string groupId, int count,
         CancellationToken cancellationToken)
     {
         return _applicationDbContext.ChatMessages
             .AsNoTracking()
-            .Where(x => x.GroupId == group)
+            .Where(x => x.GroupId == groupId)
             .OrderBy(x => x.CreatedAt)
             .Take(count)
             .ToListAsync(cancellationToken);
