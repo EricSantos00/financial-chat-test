@@ -8,6 +8,13 @@ document.getElementById("joinRoomButton").disabled = true;
 //Disable the send button until user joins a room.
 document.getElementById("sendButton").disabled = true;
 
+function appendErrorMessageToMessageList(errorMessage) {
+    const li = document.createElement("li");
+    document.getElementById("messagesList").appendChild(li);
+
+    li.innerHTML = `<span style="color:red;"><b>${errorMessage}<b></span>`;
+}
+
 connection.on("ReceiveMessage", function (date, user, message) {
     const li = document.createElement("li");
     document.getElementById("messagesList").appendChild(li);
@@ -41,6 +48,7 @@ document.getElementById("sendButton").addEventListener("click", function (event)
     const message = document.getElementById("messageInput").value;
     connection.invoke("SendMessage", message)
         .catch(function (err) {
+            appendErrorMessageToMessageList("Failed to send message");
             return console.error(err.toString());
         });
     event.preventDefault();
@@ -54,6 +62,7 @@ document.getElementById("joinRoomButton").addEventListener("click", function (ev
 
     connection.invoke("JoinRoom", room)
         .catch(function (err) {
+            appendErrorMessageToMessageList('Failed to join room');
             return console.error(err.toString());
         });
 
