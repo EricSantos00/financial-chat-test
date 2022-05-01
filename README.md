@@ -15,7 +15,7 @@
 - [RabbitMQ] (https://www.rabbitmq.com/install-windows.html)
 - [.NET 6] (https://dotnet.microsoft.com/download)
 
-You must install and configure the RabbitMQ before proceed. If you want, you can use docker as following: 
+You must install and configure RabbitMQ before proceed. If you want, you can use docker as following: 
   ```sh
   $ docker run -d --hostname my-rabbit --name rabbitmq -p 15672:15672 -p 5672:5672 rabbitmq:3-management
   ```
@@ -49,3 +49,11 @@ You must install and configure the RabbitMQ before proceed. If you want, you can
 > cd {solution_folder}/tests/FinancialChat.Bot.Tests
 > dotnet test
 ```
+
+## Test users
+After running the project, you can access the web application on localhost. 
+
+You must use one of these credentials:
+
+- user1@test.com Pass@word1
+- user2@test.com Pass@word1
